@@ -50,14 +50,17 @@ make = ->
       if id == @map[x][y].id
         return false
       else
-        for i, v in ipairs game.objects
-          if v == ref
-            table.remove game.objects, i
-            break
+        @remove_tile ref
 
     @map[x][y] = { :id, :ref }
 
     true
+
+  grid.remove_tile = (ref) =>
+    for i, v in ipairs game.objects
+      if v == ref
+        table.remove game.objects, i
+        break
 
   grid
 

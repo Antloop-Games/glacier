@@ -26,7 +26,6 @@ game.load = function(self)
   return level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)
-  print(#self.objects)
   local _list_0 = self.objects
   for _index_0 = 1, #_list_0 do
     local object = _list_0[_index_0]

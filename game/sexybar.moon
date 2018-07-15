@@ -19,6 +19,31 @@ make = ->
 
       if thing
         thing.hover = true
+    else
+      if love.mouse.isDown 1
+        if @current
+            mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
+            mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
+
+            x = mouse_x - mouse_x % game.grid.tile_scale
+            y = mouse_y - mouse_y % game.grid.tile_scale
+
+            added_thing = @current.make x, y
+
+            if game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
+              game\spawn added_thing
+      
+      if love.mouse.isDown 2
+          mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
+          mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
+
+          x = (mouse_x - mouse_x % game.grid.tile_scale) / game.grid.tile_scale
+          y = (mouse_y - mouse_y % game.grid.tile_scale) / game.grid.tile_scale
+
+          if game.grid.map[x]
+            tile = game.grid.map[x][y]
+
+            game.grid\remove_tile tile.ref if tile
 
   bar.draw = =>
     with love.graphics
@@ -75,18 +100,6 @@ make = ->
             @current = thing
           else
             @current = nil
-      else
-        if @current
-          mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
-          mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
-
-          x = mouse_x - mouse_x % game.grid.tile_scale
-          y = mouse_y - mouse_y % game.grid.tile_scale
-
-          added_thing = @current.make x, y
-
-          if game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
-            game\spawn added_thing
   bar
 
 {
