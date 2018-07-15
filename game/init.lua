@@ -23,6 +23,31 @@ game.load = function(self)
     make = (require("game/objects"))["block"].make,
     name = "block"
   })
+  self.bar:add({
+    sprite = sprites.player,
+    make = (require("game/objects"))["block"].make,
+    name = "block"
+  })
+  self.bar:add({
+    sprite = sprites.player,
+    make = (require("game/objects"))["block"].make,
+    name = "block"
+  })
+  self.bar:add({
+    sprite = sprites.player,
+    make = (require("game/objects"))["block"].make,
+    name = "block"
+  })
+  self.bar:add({
+    sprite = sprites.player,
+    make = (require("game/objects"))["block"].make,
+    name = "block"
+  })
+  self.bar:add({
+    sprite = sprites.player,
+    make = (require("game/objects"))["block"].make,
+    name = "block"
+  })
   return level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)

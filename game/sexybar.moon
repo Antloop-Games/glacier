@@ -15,7 +15,7 @@ make = ->
     mouse_y = love.mouse.getY!
 
     if mouse_y < @grid * @scale
-      thing = @things[math.floor mouse_x / (@grid * @scale)]
+      thing = @things[1 + math.floor mouse_x / (@grid * @scale)]
 
       if thing
         thing.hover = true
@@ -53,8 +53,8 @@ make = ->
 
       .scale @scale, @scale
 
-      for i = 0, width / @grid
-        x = @x + i * @grid
+      for i = 1, width / @grid
+        x = @x + (i - 1) * @grid
         y = 0
 
         thing = @things[i]
@@ -75,7 +75,7 @@ make = ->
 
           .setColor 1, 1, 1
 
-          if thing.selected
+          if thing == @current
             .setColor 1, 0, 1
 
           .draw sprite, x, y, 0, @grid / sprite\getWidth!, @grid / sprite\getHeight!
@@ -86,20 +86,18 @@ make = ->
 
 
   bar.add = (thing) =>
-    @things[#@things] = thing
+    @things[#@things + 1] = thing
 
   bar.click = (mouse_x, mouse_y, button, is_touch) =>
     if not is_touch and button == 1
       if mouse_y < @grid * @scale
-        thing = @things[math.floor mouse_x / (@grid * @scale)]
+        thing = @things[1 + math.floor mouse_x / (@grid * @scale)]
 
         if thing
-          thing.selected = not thing.selected
-
-          if thing.selected
-            @current = thing
-          else
+          if thing == @current
             @current = nil
+          else
+            @current = thing
   bar
 
 {
