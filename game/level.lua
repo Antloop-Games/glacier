@@ -34,7 +34,6 @@ end
 level.spawn = function(k, x, y, game)
   local a = objects[k].make(x, y)
   game:spawn(a)
-  game.world:add(a, a.x, a.y, a.w, a.h)
   return a
 end
 return level

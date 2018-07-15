@@ -14,6 +14,7 @@ make = function(x, y)
       return _with_0
     end
   end
+  game.world:add(block, block.x, block.y, block.w, block.h)
   return block
 end
 return {

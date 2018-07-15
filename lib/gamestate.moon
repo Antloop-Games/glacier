@@ -49,8 +49,8 @@ state.release = (key, isrepeat) =>
   @current\release key, isrepeat if @current.release
   @
 
-state.click = (button, x, y, is_touch) =>
-  @current\click button, x, y, is_touch if @current.click
+state.click = (x, y, button, is_touch) =>
+  @current\click x, y, button, is_touch if @current.click
   @
 
 state

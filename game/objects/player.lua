@@ -143,6 +143,7 @@ make = function(x, y)
       end
     end
   end
+  game.world:add(player, player.x, player.y, player.w, player.h)
   return player
 end
 return {

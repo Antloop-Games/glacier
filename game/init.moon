@@ -7,7 +7,7 @@ export game = {
 camera = require "game/camera"
 bar    = require "game/sexybar"
 level  = require "game/level"
-
+grid   = require "game/grid"
 
 
 sprites = {
@@ -25,12 +25,13 @@ game.load = =>
 
   @camera  = camera.make 0, 0, 3, 3, 0
   @world   = lib.bump.newWorld!
+  @grid    = grid.make!
 
   @sprites = sprites
 
   @bar     = bar.make!
 
-  @bar\add({ sprite: sprites.player })
+  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make })
 
   level\load "res/levels/0.png", @
 
@@ -44,8 +45,20 @@ game.update = (dt) =>
 game.draw = =>
   @camera\set!
 
+  @grid.draw!
+
   for object in *@objects
     object\draw! if object.draw
+
+  if @bar.current
+    with love.graphics
+      .setColor 1, 1, 1
+
+      mouse_x = @camera\left! + love.mouse.getX! / @camera.sx
+      mouse_y = @camera\top!  + love.mouse.getY! / @camera.sy
+
+      .draw @bar.current.sprite, mouse_x - mouse_x % @grid.block_scale, mouse_y - mouse_y % @grid.block_scale
+
 
   @camera\unset!
 
@@ -61,7 +74,7 @@ game.release = (key) =>
   for object in *@objects
     object\release key if object.release
 
-game.click = (button, x, y, is_touch) =>
-  @bar\click button, x, y, is_touch
+game.click = (x, y, button, is_touch) =>
+  @bar\click x, y, button, is_touch
 
 game

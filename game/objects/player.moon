@@ -156,6 +156,7 @@ make = (x, y) ->
       if key == "space" 
         @dy = 0
 
+  game.world\add player, player.x, player.y, player.w, player.h
 
   player
 
