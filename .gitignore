@@ -1,2 +1,4 @@
 *.lua
+*/*.lua
+*/*/*.lua
 !lib/bump.lua

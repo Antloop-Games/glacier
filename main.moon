@@ -2,7 +2,7 @@ export lib = require "lib"
 
 
 love.graphics.setDefaultFilter "nearest", "nearest"
-love.graphics.setBackgroundColor 1, 1, 1  
+love.graphics.setBackgroundColor 1, 1, 1
 
 
 lib.gamestate\set "game"
