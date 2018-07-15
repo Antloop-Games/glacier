@@ -5,6 +5,7 @@ export game = {
 
 
 camera = require "game/camera"
+bar    = require "game/sexybar"
 level  = require "game/level"
 
 
@@ -27,6 +28,9 @@ game.load = =>
 
   @sprites = sprites
 
+  @bar     = bar.make!
+
+  @bar\add({ sprite: sprites.player })
 
   level\load "res/levels/0.png", @
 
@@ -43,6 +47,8 @@ game.draw = =>
     object\draw! if object.draw
 
   @camera\unset!
+
+  @bar\draw!
 
 
 game.press = (key) =>
