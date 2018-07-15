@@ -80,8 +80,13 @@ make = ->
           mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
           mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
 
-          game\spawn @current.make mouse_x - mouse_x % game.grid.tile_scale, mouse_y - mouse_y % game.grid.tile_scale
+          x = mouse_x - mouse_x % game.grid.tile_scale
+          y = mouse_y - mouse_y % game.grid.tile_scale
 
+          added_thing = @current.make x, y
+
+          if game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
+            game\spawn added_thing
   bar
 
 {

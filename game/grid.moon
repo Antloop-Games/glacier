@@ -1,6 +1,7 @@
 make = ->
   grid = {
-    tile_scale: 20
+    tile_scale: 20,
+    map: {},
   }
 
   grid.draw = =>
@@ -41,6 +42,22 @@ make = ->
         mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
 
         .draw game.bar.current.sprite, mouse_x - mouse_x % @tile_scale, mouse_y - mouse_y % @tile_scale
+
+  grid.add_tile = (x, y, id, ref) => -- returns false if it's adding the same
+    unless @map[x]
+      @map[x] = {}
+    elseif @map[x][y]
+      if id == @map[x][y].id
+        return false
+      else
+        for i, v in ipairs game.objects
+          if v == ref
+            table.remove game.objects, i
+            break
+
+    @map[x][y] = { :id, :ref }
+
+    true
 
   grid
 

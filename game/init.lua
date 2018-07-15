@@ -18,12 +18,15 @@ game.load = function(self)
   self.grid = grid.make()
   self.sprites = sprites
   self.bar = bar.make()
-  return self.bar:add({
+  self.bar:add({
     sprite = sprites.player,
-    make = (require("game/objects"))["block"].make
+    make = (require("game/objects"))["block"].make,
+    name = "block"
   })
+  return level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)
+  print(#self.objects)
   local _list_0 = self.objects
   for _index_0 = 1, #_list_0 do
     local object = _list_0[_index_0]
