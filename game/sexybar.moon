@@ -6,6 +6,8 @@ make = ->
     scale: 3 -- for how big things are, bar's its own camera
 
     things: {}
+
+    current: nil
   }
 
   bar.update = (dt) =>
@@ -55,6 +57,12 @@ make = ->
           
           thing.hover = false
     
+      if @current
+        mouse_x = love.mouse.getX!
+        mouse_y = love.mouse.getY!
+
+        .draw @current.sprite, math.floor mouse_x / (@grid * @scale), @mouse_y
+
       .pop!
 
 
@@ -68,6 +76,11 @@ make = ->
 
         if thing
           thing.selected = not thing.selected
+
+          if thing.selected
+            @current = thing
+          else
+            @current = nil
 
   bar
 
