@@ -48,4 +48,10 @@ state.release = function(self, key, isrepeat)
   end
   return self
 end
+state.click = function(self, button, x, y, is_touch)
+  if self.current.click then
+    self.current:click(button, x, y, is_touch)
+  end
+  return self
+end
 return state

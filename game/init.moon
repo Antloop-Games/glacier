@@ -40,6 +40,7 @@ game.update = (dt) =>
   for object in *@objects
     object\update dt if object.update
 
+  @bar\update dt
 
 game.draw = =>
   @camera\set!
@@ -63,6 +64,7 @@ game.release = (key) =>
   for object in *@objects
     object\release key if object.release
 
-
+game.click = (button, x, y, is_touch) =>
+  @bar\click button, x, y, is_touch
 
 game
