@@ -29,6 +29,7 @@ game.update = function(self, dt)
       object:update(dt)
     end
   end
+  return self.bar:update(dt)
 end
 game.draw = function(self)
   self.camera:set()
@@ -59,5 +60,8 @@ game.release = function(self, key)
       object:release(key)
     end
   end
+end
+game.click = function(self, button, x, y, is_touch)
+  return self.bar:click(button, x, y, is_touch)
 end
 return game

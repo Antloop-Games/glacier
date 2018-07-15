@@ -31,5 +31,8 @@ do
   _with_0.keyreleased = function(key)
     return lib.gamestate:release(key)
   end
+  _with_0.mousepressed = function(x, y, button, istouch)
+    return lib.gamestate:click(x, y, button, istouch)
+  end
   return _with_0
 end
