@@ -33,8 +33,6 @@ game.load = =>
 
   @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make })
 
-  level\load "res/levels/0.png", @
-
 
 game.update = (dt) =>
   for object in *@objects
@@ -45,20 +43,12 @@ game.update = (dt) =>
 game.draw = =>
   @camera\set!
 
-  @grid.draw!
+  @grid\draw!
 
   for object in *@objects
     object\draw! if object.draw
 
-  if @bar.current
-    with love.graphics
-      .setColor 1, 1, 1
-
-      mouse_x = @camera\left! + love.mouse.getX! / @camera.sx
-      mouse_y = @camera\top!  + love.mouse.getY! / @camera.sy
-
-      .draw @bar.current.sprite, mouse_x - mouse_x % @grid.block_scale, mouse_y - mouse_y % @grid.block_scale
-
+  @grid\draw_highlight!
 
   @camera\unset!
 

@@ -18,11 +18,10 @@ game.load = function(self)
   self.grid = grid.make()
   self.sprites = sprites
   self.bar = bar.make()
-  self.bar:add({
+  return self.bar:add({
     sprite = sprites.player,
     make = (require("game/objects"))["block"].make
   })
-  return level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)
   local _list_0 = self.objects
@@ -36,7 +35,7 @@ game.update = function(self, dt)
 end
 game.draw = function(self)
   self.camera:set()
-  self.grid.draw()
+  self.grid:draw()
   local _list_0 = self.objects
   for _index_0 = 1, #_list_0 do
     local object = _list_0[_index_0]
@@ -44,15 +43,7 @@ game.draw = function(self)
       object:draw()
     end
   end
-  if self.bar.current then
-    do
-      local _with_0 = love.graphics
-      _with_0.setColor(1, 1, 1)
-      local mouse_x = self.camera:left() + love.mouse.getX() / self.camera.sx
-      local mouse_y = self.camera:top() + love.mouse.getY() / self.camera.sy
-      _with_0.draw(self.bar.current.sprite, mouse_x - mouse_x % self.grid.block_scale, mouse_y - mouse_y % self.grid.block_scale)
-    end
-  end
+  self.grid:draw_highlight()
   self.camera:unset()
   return self.bar:draw()
 end

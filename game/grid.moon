@@ -32,6 +32,16 @@ make = ->
         --Draw line from left to right
         love.graphics.line x1, y1, x2, y2
 
+  grid.draw_highlight = =>
+    if game.bar.current
+      with love.graphics
+        .setColor 1, 1, 1
+
+        mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
+        mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
+
+        .draw game.bar.current.sprite, mouse_x - mouse_x % @block_scale, mouse_y - mouse_y % @block_scale
+
   grid
 
 {
