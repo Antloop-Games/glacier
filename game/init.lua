@@ -2,6 +2,7 @@ game = {
   objects = { }
 }
 local camera = require("game/camera")
+local bar = require("game/sexybar")
 local level = require("game/level")
 local sprites = {
   player = love.graphics.newImage("res/ninja.png")
@@ -14,6 +15,10 @@ game.load = function(self)
   self.camera = camera.make(0, 0, 3, 3, 0)
   self.world = lib.bump.newWorld()
   self.sprites = sprites
+  self.bar = bar.make()
+  self.bar:add({
+    sprite = sprites.player
+  })
   return level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)
@@ -34,7 +39,8 @@ game.draw = function(self)
       object:draw()
     end
   end
-  return self.camera:unset()
+  self.camera:unset()
+  return self.bar:draw()
 end
 game.press = function(self, key)
   local _list_0 = self.objects
