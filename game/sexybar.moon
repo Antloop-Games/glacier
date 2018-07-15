@@ -66,21 +66,22 @@ make = ->
   bar.click = (mouse_x, mouse_y, button, is_touch) =>  
     unless is_touch
       if button == 1
-      if mouse_y < @grid * @scale      
-        thing = @things[math.floor mouse_x / (@grid * @scale)]
+        if mouse_y < @grid * @scale      
+          thing = @things[math.floor mouse_x / (@grid * @scale)]
 
-        if thing
-          thing.selected = not thing.selected
+          if thing
+            thing.selected = not thing.selected
 
-          if thing.selected
-            @current = thing
-          else
-            @current = nil
-      else
-        mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
-        mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
+            if thing.selected
+              @current = thing
+            else
+              @current = nil
+        else
+          if @current
+            mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
+            mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
 
-        game\spawn @current.make mouse_x - mouse_x % game.grid.block_scale, mouse_y - mouse_y % game.grid.block_scale
+            game\spawn @current.make mouse_x - mouse_x % game.grid.block_scale, mouse_y - mouse_y % game.grid.block_scale
 
   bar
 
