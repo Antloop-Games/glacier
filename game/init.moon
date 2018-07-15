@@ -7,7 +7,7 @@ export game = {
 camera = require "game/camera"
 bar    = require "game/sexybar"
 level  = require "game/level"
-
+grid   = require "game/grid"
 
 
 sprites = {
@@ -25,6 +25,7 @@ game.load = =>
 
   @camera  = camera.make 0, 0, 3, 3, 0
   @world   = lib.bump.newWorld!
+  @grid    = grid.make!
 
   @sprites = sprites
 
@@ -42,6 +43,8 @@ game.update = (dt) =>
 
 game.draw = =>
   @camera\set!
+
+  @grid.draw!
 
   for object in *@objects
     object\draw! if object.draw

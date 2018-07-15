@@ -4,6 +4,7 @@ game = {
 local camera = require("game/camera")
 local bar = require("game/sexybar")
 local level = require("game/level")
+local grid = require("game/grid")
 local sprites = {
   player = love.graphics.newImage("res/ninja.png")
 }
@@ -14,6 +15,7 @@ game.load = function(self)
   self.objects = { }
   self.camera = camera.make(0, 0, 3, 3, 0)
   self.world = lib.bump.newWorld()
+  self.grid = grid.make()
   self.sprites = sprites
   self.bar = bar.make()
   self.bar:add({
@@ -32,6 +34,7 @@ game.update = function(self, dt)
 end
 game.draw = function(self)
   self.camera:set()
+  self.grid.draw()
   local _list_0 = self.objects
   for _index_0 = 1, #_list_0 do
     local object = _list_0[_index_0]

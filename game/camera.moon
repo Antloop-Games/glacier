@@ -32,14 +32,26 @@ make = (x, y, sx, sy, r) ->
   cam.width = =>
     love.graphics.getWidth! / @sx
 
-  --The heightt of the camera in in-game distance
+  --The height of the camera in in-game distance
   cam.height = =>
     love.graphics.getHeight! / @sy
 
+  --Position of the left border of the camera in the gameworld
+  cam.left = =>
+    @x / @sx - @width!/2
+
+  --Position of the right border of the camera in the gameworld
+  cam.right = =>
+    @x / @sx + @width!/2
+
+  cam.top = =>
+    @y / @sy - @height!/2
+
+  cam.bot = =>
+    @y / @sy + @height!/2
+
+
   cam
-
-
-
 {
   :make
 }
