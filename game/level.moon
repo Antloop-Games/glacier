@@ -21,6 +21,11 @@ make = ->
 
 
   level.load = (path) =>
+    --Remove all tiles
+    for x, _y in ipairs(@map)
+      for y, v in ipairs(_y)
+        print(x,y,v)
+
     image = love.image.newImageData path
 
     for x = 1, image\getWidth!
@@ -29,31 +34,11 @@ make = ->
 
         r, g, b = image\getPixel rx, ry
 
-        for k, v in pairs level.registry
-          if r == v[1] and g == v[2] and b == v[3]
-            level.spawn k, level.size * rx, level.size * ry
+        for id, color in pairs level.registry
+          if r == color[1] and g == color[2] and b == color[3]
+            level\add_tile rx, ry, id
 
-
-  level.spawn = (k, x, y) ->
-    a = objects[k].make x, y
-
-    if k == "player"
-      game\spawn {
-        draw: =>
-          with love.graphics
-            .setColor 1, 1, 1, .5
-            .draw game.sprites.player, x, y
-      }
-
-    game\spawn a
-
-    level\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, k, a
-
-    game.world\add a, a.x, a.y, a.w, a.h
-
-    a
-
-  level.add_tile = (x, y, id, ref) => -- returns false if it's adding the same
+  level.add_tile = (x, y, id) => -- returns false if it's adding the same
     --TODO: Make the min and max be calculated in @export_map
     --      as adding a tile far away and then removing it
     --      results in an unnecessarily big map, and this could
@@ -71,10 +56,13 @@ make = ->
         --Place a block ontop of the exact same block or the player spawn point
         --so we shouldn't do anything
         return false
-      else
-        @remove_tile ref
 
-    @map[x][y] = { :id, :ref }
+    --create the tile in the game world
+    tile = objects[id].make x * @size, y * @size
+    game\spawn tile
+    game.world\add tile, tile.x, tile.y, tile.w, tile.h
+
+    @map[x][y] = { :id, ref: tile }
 
     true
 

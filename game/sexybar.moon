@@ -32,11 +32,7 @@ make = ->
             x = mouse_x - mouse_x % game.grid.tile_scale
             y = mouse_y - mouse_y % game.grid.tile_scale
 
-            added_thing = @current.make x, y
-
-            if game.level\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
-              game\spawn added_thing
-              game.world\add added_thing, added_thing.x, added_thing.y, added_thing.w, added_thing.h
+            game.level\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name
 
 
       if love.mouse.isDown 2
