@@ -34,6 +34,9 @@ end
 level.spawn = function(k, x, y, game)
   local a = objects[k].make(x, y)
   game:spawn(a)
+  if not (k == "player") then
+    game.grid:add_tile(x / game.grid.tile_scale, y / game.grid.tile_scale, k, a)
+  end
   game.world:add(a, a.x, a.y, a.w, a.h)
   return a
 end

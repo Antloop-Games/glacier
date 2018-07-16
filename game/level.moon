@@ -35,6 +35,7 @@ level.spawn = (k, x, y, game) ->
   a = objects[k].make x, y
 
   game\spawn a
+  game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, k, a unless k == "player"
   game.world\add a, a.x, a.y, a.w, a.h
 
   a
