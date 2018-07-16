@@ -101,7 +101,7 @@ make = ->
 
         level_img\setPixel new_x, new_y, color[1], color[2], color[3]
 
-    unless love.filesystem.exists "maps"
+    unless love.filesystem.getInfo "maps"
       love.filesystem.createDirectory "maps"
 
     level_img\encode "png", "maps/#{path}.png"
