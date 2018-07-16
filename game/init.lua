@@ -1,5 +1,11 @@
 game = {
-  objects = { }
+  objects = { },
+  camera = nil,
+  level = nil,
+  world = nil,
+  grid = nil,
+  bar = nil,
+  sprites = nil
 }
 local camera = require("game/camera")
 local bar = require("game/sexybar")
@@ -14,7 +20,7 @@ end
 game.load = function(self)
   self.objects = { }
   self.camera = camera.make(0, 0, 3, 3, 0)
-  self.level = level
+  self.level = level.make()
   self.world = lib.bump.newWorld()
   self.grid = grid.make()
   self.sprites = sprites

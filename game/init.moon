@@ -1,5 +1,13 @@
 export game = {
-  objects: {} -- game objects of the world
+  objects: {}, -- game objects of the world
+
+  camera: nil,
+  level: nil,
+  world: nil,
+  grid: nil,
+  bar: nil,
+
+  sprites: nil,
 }
 
 
@@ -24,7 +32,7 @@ game.load = =>
   @objects = {}
 
   @camera  = camera.make 0, 0, 3, 3, 0
-  @level   = level
+  @level   = level.make!
 
   @world   = lib.bump.newWorld!
   @grid    = grid.make!
