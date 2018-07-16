@@ -53,4 +53,8 @@ state.click = (x, y, button, is_touch) =>
   @current\click x, y, button, is_touch if @current.click
   @
 
+state.textinput = (t) =>
+  @current\textinput t if @current.textinput
+  @
+
 state

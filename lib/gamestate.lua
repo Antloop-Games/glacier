@@ -54,4 +54,10 @@ state.click = function(self, x, y, button, is_touch)
   end
   return self
 end
+state.textinput = function(self, t)
+  if self.current.textinput then
+    self.current:textinput(t)
+  end
+  return self
+end
 return state

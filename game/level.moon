@@ -34,8 +34,18 @@ level.load = (path, game) =>
 level.spawn = (k, x, y, game) ->
   a = objects[k].make x, y
 
+  if k == "player"
+    game\spawn {
+      draw: =>
+        with love.graphics
+          .setColor 1, 1, 1, .5
+          .draw game.sprites.player, x, y
+    }
+  
   game\spawn a
-  game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, k, a unless k == "player"
+
+  game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, k, a
+
   game.world\add a, a.x, a.y, a.w, a.h
 
   a

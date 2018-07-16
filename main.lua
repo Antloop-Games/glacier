@@ -34,5 +34,8 @@ do
   _with_0.mousepressed = function(x, y, button, istouch)
     return lib.gamestate:click(x, y, button, istouch)
   end
+  _with_0.textinput = function(t)
+    return lib.gamestate:textinput(t)
+  end
   return _with_0
 end

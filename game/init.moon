@@ -24,6 +24,8 @@ game.load = =>
   @objects = {}
 
   @camera  = camera.make 0, 0, 3, 3, 0
+  @level   = level
+
   @world   = lib.bump.newWorld!
   @grid    = grid.make!
 
@@ -38,11 +40,12 @@ game.load = =>
   @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
   @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
 
-  level\load "res/levels/0.png", @
+  @level\load "res/levels/0.png", @
 
 game.update = (dt) =>
-  for object in *@objects
-    object\update dt if object.update
+  unless @bar.exporting
+    for object in *@objects
+      object\update dt if object.update
 
   @bar\update dt
 
@@ -65,6 +68,8 @@ game.press = (key) =>
   for object in *@objects
     object\press key if object.press
 
+  @bar\press key
+
 
 game.release = (key) =>
   for object in *@objects
@@ -72,5 +77,8 @@ game.release = (key) =>
 
 game.click = (x, y, button, is_touch) =>
   @bar\click x, y, button, is_touch
+
+game.textinput = (t) =>
+  @bar\textinput t
 
 game

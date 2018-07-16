@@ -14,6 +14,7 @@ end
 game.load = function(self)
   self.objects = { }
   self.camera = camera.make(0, 0, 3, 3, 0)
+  self.level = level
   self.world = lib.bump.newWorld()
   self.grid = grid.make()
   self.sprites = sprites
@@ -48,14 +49,16 @@ game.load = function(self)
     make = (require("game/objects"))["block"].make,
     name = "block"
   })
-  return level:load("res/levels/0.png", self)
+  return self.level:load("res/levels/0.png", self)
 end
 game.update = function(self, dt)
-  local _list_0 = self.objects
-  for _index_0 = 1, #_list_0 do
-    local object = _list_0[_index_0]
-    if object.update then
-      object:update(dt)
+  if not (self.bar.exporting) then
+    local _list_0 = self.objects
+    for _index_0 = 1, #_list_0 do
+      local object = _list_0[_index_0]
+      if object.update then
+        object:update(dt)
+      end
     end
   end
   return self.bar:update(dt)
@@ -82,6 +85,7 @@ game.press = function(self, key)
       object:press(key)
     end
   end
+  return self.bar:press(key)
 end
 game.release = function(self, key)
   local _list_0 = self.objects
@@ -94,5 +98,8 @@ game.release = function(self, key)
 end
 game.click = function(self, x, y, button, is_touch)
   return self.bar:click(x, y, button, is_touch)
+end
+game.textinput = function(self, t)
+  return self.bar:textinput(t)
 end
 return game

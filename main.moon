@@ -27,3 +27,5 @@ with love
   .keyreleased = (key) -> lib.gamestate\release key
 
   .mousepressed = (x, y, button, istouch) -> lib.gamestate\click x, y, button, istouch
+  
+  .textinput = (t) -> lib.gamestate\textinput t

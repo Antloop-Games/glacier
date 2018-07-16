@@ -1,3 +1,5 @@
+utf8 = require "utf8"
+
 make = ->
   bar = {
     x: 0, y: 0
@@ -8,6 +10,8 @@ make = ->
     things: {}
 
     current: nil
+
+    file_path: ""
   }
 
   bar.update = (dt) =>
@@ -83,6 +87,13 @@ make = ->
 
           thing.hover = false
 
+      if @exporting
+        .setColor 0, .25, 0, .9
+        .print "[e]xport: #{@file_path}", 10, @grid * 1.85
+      else
+        .setColor 0, 0, 0, .9
+        .print "export: ", 10, @grid * 1.85
+
       .pop!
 
 
@@ -99,6 +110,28 @@ make = ->
             @current = nil
           else
             @current = thing
+
+  bar.press = (key) =>
+    if key == "e" and not @exporting
+      @file_path = ""
+      @exporting = true
+
+    if key == "escape"
+      @exporting = false
+
+    if key == "backspace" and @exporting
+      byteoffset = utf8.offset @file_path, -1
+ 
+      if byteoffset
+        @file_path = string.sub @file_path, 1, byteoffset - 1
+    
+    if key == "return" and @exporting
+      game.grid\export_map @file_path
+
+  bar.textinput = (t) =>
+    if @exporting
+      @file_path ..= t
+
   bar
 
 {
