@@ -45,7 +45,7 @@ make = (x, y) ->
     @x, @y, @collisions = game.world\move @, @x + @dx, @y + @dy
 
     for c in *@collisions
-      c.other\trigger @ if c.other.trigger      
+      c.other\trigger @ if c.other.trigger
 
       if c.normal.y ~= 0
         if c.normal.y == -1
@@ -61,7 +61,7 @@ make = (x, y) ->
         @dx = 0
 
         @wall_x = c.normal.x
-    
+
     @trigger_flag = false
 
     if @jumped
@@ -126,7 +126,7 @@ make = (x, y) ->
         @jumped = true
 
         @wall_x = 0
-    
+
 
     if key == "d"
       if @dash_x == 1
@@ -153,8 +153,12 @@ make = (x, y) ->
 
   player.release = (key) =>
     if @jumped
-      if key == "space" 
+      if key == "space"
         @dy = 0
+
+
+  player.remove = =>
+    game.world\remove @
 
   player
 

@@ -12,7 +12,7 @@ make = (x, y) ->
       .rectangle "fill", @x, @y, @w, @h
 
   block.remove = =>
-    game.world\remove self
+    game.world\remove @
 
   block
 

@@ -22,9 +22,11 @@ make = ->
 
   level.load = (path) =>
     --Remove all tiles
-    for x, _y in ipairs(@map)
-      for y, v in ipairs(_y)
-        print(x,y,v)
+    for x, _y in pairs(@map)
+      for y, _ in pairs(_y)
+        level\remove_tile_unchecked x, y
+
+    game.objects = {}
 
     image = love.image.newImageData path
 
@@ -69,11 +71,13 @@ make = ->
   level.remove_tile = (x, y) =>
     --Can't be unless, checks if the block exists
     return if not @map[x] or not @map[x][y]
+    -- we do in fact need player
+    return if @map[x][y].id == "player"
 
+    level\remove_tile_unchecked x, y
+
+  level.remove_tile_unchecked = (x, y) =>
     ref = @map[x][y].ref
-
-    return if @map[x][y].id == "player" -- we do in fact need player
-
     --Make the object remove itself from bump
     ref\remove!
 
