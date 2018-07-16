@@ -34,11 +34,11 @@ make = ->
 
             added_thing = @current.make x, y
 
-            if game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
+            if game.level\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
               game\spawn added_thing
-              game.world\add added_thing, added_thing.x, added_thing.y, added_thing.w, added_thing.h  
+              game.world\add added_thing, added_thing.x, added_thing.y, added_thing.w, added_thing.h
 
-      
+
       if love.mouse.isDown 2
           mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
           mouse_y = game.camera\top!  + love.mouse.getY! / game.camera.sy
@@ -46,9 +46,9 @@ make = ->
           x = (mouse_x - mouse_x % game.grid.tile_scale) / game.grid.tile_scale
           y = (mouse_y - mouse_y % game.grid.tile_scale) / game.grid.tile_scale
 
-          if game.grid.map[x]
-            if game.grid.map[x][y]
-              game.grid\remove_tile x, y
+          if game.level.map[x]
+            if game.level.map[x][y]
+              game.level\remove_tile x, y
 
   bar.draw = =>
     with love.graphics
@@ -121,12 +121,12 @@ make = ->
 
     if key == "backspace" and @exporting
       byteoffset = utf8.offset @file_path, -1
- 
+
       if byteoffset
         @file_path = string.sub @file_path, 1, byteoffset - 1
-    
+
     if key == "return" and @exporting
-      game.grid\export_map @file_path
+      game.level\export_map @file_path
 
   bar.textinput = (t) =>
     if @exporting

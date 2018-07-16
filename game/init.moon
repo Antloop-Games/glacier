@@ -1,13 +1,13 @@
 export game = {
   objects: {}, -- game objects of the world
 
-  camera: nil,
-  level: nil,
-  world: nil,
-  grid: nil,
-  bar: nil,
+  camera: nil
+  level:  nil
+  world:  nil
+  grid:   nil
+  bar:    nil
 
-  sprites: nil,
+  sprites: nil
 }
 
 
