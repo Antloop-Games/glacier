@@ -11,7 +11,8 @@ make = (x, y) ->
       .setColor 0, 0, 0
       .rectangle "fill", @x, @y, @w, @h
 
-  game.world\add block, block.x, block.y, block.w, block.h
+  block.remove = =>
+    game.world\remove self
 
   block
 

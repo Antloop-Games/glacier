@@ -56,11 +56,17 @@ make = ->
 
     true
 
-  grid.remove_tile = (ref) =>
+  grid.remove_tile = (x, y) =>
+    ref = @map[x][y].ref
+
+    ref\remove!
+
     for i, v in ipairs game.objects
       if v == ref
         table.remove game.objects, i
         break
+
+    @map[x][y] = nil
 
   grid
 

@@ -14,7 +14,9 @@ make = function(x, y)
       return _with_0
     end
   end
-  game.world:add(block, block.x, block.y, block.w, block.h)
+  block.remove = function(self)
+    return game.world:remove(self)
+  end
   return block
 end
 return {

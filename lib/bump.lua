@@ -640,6 +640,7 @@ function World:remove(item)
   local x,y,w,h = self:getRect(item)
 
   self.rects[item] = nil
+
   local cl,ct,cw,ch = grid_toCellRect(self.cellSize, x,y,w,h)
   for cy = ct, ct+ch-1 do
     for cx = cl, cl+cw-1 do

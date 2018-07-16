@@ -32,6 +32,8 @@ make = ->
 
             if game.grid\add_tile x / game.grid.tile_scale, y / game.grid.tile_scale, @current.name, added_thing
               game\spawn added_thing
+              game.world\add added_thing, added_thing.x, added_thing.y, added_thing.w, added_thing.h  
+
       
       if love.mouse.isDown 2
           mouse_x = game.camera\left! + love.mouse.getX! / game.camera.sx
@@ -41,9 +43,8 @@ make = ->
           y = (mouse_y - mouse_y % game.grid.tile_scale) / game.grid.tile_scale
 
           if game.grid.map[x]
-            tile = game.grid.map[x][y]
-
-            game.grid\remove_tile tile.ref if tile
+            if game.grid.map[x][y]
+              game.grid\remove_tile x, y
 
   bar.draw = =>
     with love.graphics
