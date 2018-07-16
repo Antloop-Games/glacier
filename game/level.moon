@@ -20,14 +20,10 @@ make = ->
 
 
 
-  level.load = (path, game) =>
+  level.load = (path) =>
     image = love.image.newImageData path
 
-    map = {}
-
     for x = 1, image\getWidth!
-      map[x] = {}
-
       for y = 1, image\getHeight!
         rx, ry = x - 1, y - 1
 
@@ -35,10 +31,10 @@ make = ->
 
         for k, v in pairs level.registry
           if r == v[1] and g == v[2] and b == v[3]
-            level.spawn k, level.size * rx, level.size * ry, game
+            level.spawn k, level.size * rx, level.size * ry
 
 
-  level.spawn = (k, x, y, game) ->
+  level.spawn = (k, x, y) ->
     a = objects[k].make x, y
 
     if k == "player"
@@ -58,6 +54,10 @@ make = ->
     a
 
   level.add_tile = (x, y, id, ref) => -- returns false if it's adding the same
+    --TODO: Make the min and max be calculated in @export_map
+    --      as adding a tile far away and then removing it
+    --      results in an unnecessarily big map, and this could
+    --      result in more bugs.
     @min_x = x if @min_x == nil or x < @min_x
     @max_x = x if @max_x == nil or x > @max_x
 
@@ -67,10 +67,11 @@ make = ->
     unless @map[x]
       @map[x] = {}
     elseif @map[x][y]
-      if id == @map[x][y].id
+      if id == @map[x][y].id or @map[x][y].id == "player"
+        --Place a block ontop of the exact same block or the player spawn point
+        --so we shouldn't do anything
         return false
       else
-        return false if @map[x][y].id == "player"
         @remove_tile ref
 
     @map[x][y] = { :id, :ref }
@@ -78,17 +79,23 @@ make = ->
     true
 
   level.remove_tile = (x, y) =>
+    --Can't be unless, checks if the block exists
+    return if not @map[x] or not @map[x][y]
+
     ref = @map[x][y].ref
 
     return if @map[x][y].id == "player" -- we do in fact need player
 
+    --Make the object remove itself from bump
     ref\remove!
 
+    --Remove from game.objects
     for i, v in ipairs game.objects
       if v == ref
         table.remove game.objects, i
         break
 
+    --Remove from 2d array
     @map[x][y] = nil
 
   level.export_map = (path) =>

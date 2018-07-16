@@ -48,7 +48,7 @@ game.load = =>
   @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
   @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
 
-  @level\load "res/levels/0.png", @
+  @level\load "res/levels/0.png"
 
 game.update = (dt) =>
   unless @bar.exporting

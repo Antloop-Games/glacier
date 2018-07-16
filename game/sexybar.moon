@@ -46,9 +46,7 @@ make = ->
           x = (mouse_x - mouse_x % game.grid.tile_scale) / game.grid.tile_scale
           y = (mouse_y - mouse_y % game.grid.tile_scale) / game.grid.tile_scale
 
-          if game.level.map[x]
-            if game.level.map[x][y]
-              game.level\remove_tile x, y
+          game.level\remove_tile x, y
 
   bar.draw = =>
     with love.graphics
