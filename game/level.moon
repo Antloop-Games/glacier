@@ -112,7 +112,7 @@ make = ->
     unless love.filesystem.getInfo "maps"
       love.filesystem.createDirectory "maps"
 
-    level_img\encode "png", "maps/#{path}.png"
+    level_img\encode "png", path
 
   level
 

@@ -81,12 +81,12 @@ make = ->
 
           thing.hover = false
 
-      if @exporting
+      if @mode == "exporting"
         .setColor 0, .25, 0, .9
         .print "[e]xport: #{@file_path}", 10, @grid * 1.85
-      else
+      elseif @mode == "importing"
         .setColor 0, 0, 0, .9
-        .print "export: ", 10, @grid * 1.85
+        .print "[i]mport: #{@file_path}", 10, @grid * 1.85
 
       .pop!
 
@@ -106,24 +106,32 @@ make = ->
             @current = thing
 
   bar.press = (key) =>
-    if key == "e" and not @exporting
-      @file_path = ""
-      @exporting = true
+    unless @mode
+      if key == "e"
+        @file_path = ""
+        @mode= "exporting"
+      elseif key == "i"
+        @file_path = ""
+        @mode= "importing"
 
     if key == "escape"
-      @exporting = false
+      @mode = nil
 
-    if key == "backspace" and @exporting
+    if key == "backspace" and @mode
       byteoffset = utf8.offset @file_path, -1
 
       if byteoffset
         @file_path = string.sub @file_path, 1, byteoffset - 1
 
-    if key == "return" and @exporting
-      game.level\export_map @file_path
+    if key == "return"
+      if @mode == "export"
+        game.level\export_map "maps/#{@file_path}.png"
+      if @mode == "importing"
+        game.level\load "maps/#{@file_path}.png"
+      @mode = nil
 
   bar.textinput = (t) =>
-    if @exporting
+    if @mode
       @file_path ..= t
 
   bar

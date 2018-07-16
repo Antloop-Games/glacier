@@ -51,7 +51,7 @@ game.load = =>
   @level\load "res/levels/0.png"
 
 game.update = (dt) =>
-  unless @bar.exporting
+  unless @bar.mode
     for object in *@objects
       object\update dt if object.update
 
