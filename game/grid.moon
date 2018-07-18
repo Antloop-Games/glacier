@@ -9,23 +9,23 @@ make = ->
       love.graphics.setColor(0, 0, 0)
 
       --Vertical lines
-      offset = \left! % grid.tile_scale
+      offset = \left! % game.tile_scale
 
-      for i = 0, \width! / grid.tile_scale do
+      for i = 0, \width! / game.tile_scale do
         --Top point
         --Each line is slitghly more to the right than previous one
-        x1, y1 = \left! - offset + i * grid.tile_scale, \top!
+        x1, y1 = \left! - offset + i * game.tile_scale, \top!
         --Bottom point
         x2, y2 = x1, \bot!
         --Line from top to bottom
         love.graphics.line x1, y1, x2, y2
 
       --Horizontal lines
-      offset = \top! % grid.tile_scale
+      offset = \top! % game.tile_scale
 
-      for i = 0, \height! / grid.tile_scale do
+      for i = 0, \height! / game.tile_scale do
         --Left point     each line is slitghly lower than the previous one
-        x1, y1 = \left!, \top! - offset + i * grid.tile_scale
+        x1, y1 = \left!, \top! - offset + i * game.tile_scale
         --Right point
         x2, y2 = \right!, y1
         --Draw line from left to right

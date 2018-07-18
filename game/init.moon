@@ -1,5 +1,6 @@
 export game = {
-  objects: {}, -- game objects of the world
+  objects: {} -- game objects of the world
+  tile_scale: 20
 
   camera: nil
   level:  nil
@@ -41,12 +42,13 @@ game.load = =>
 
   @bar     = bar.make!
 
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
-  @bar\add({ sprite: sprites.player, make: (require "game/objects")["block"].make, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
+  @bar\add({ sprite: sprites.player, name: "block" })
 
   @level\load "res/levels/0.png"
 

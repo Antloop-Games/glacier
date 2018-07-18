@@ -1,6 +1,5 @@
 make = ->
   level = {
-    size: 20 -- size of grid squares
     registry: {
       "block":  { 0, 0, 0 }
       "player": { 1, 1, 0 }
@@ -60,7 +59,7 @@ make = ->
         return false
 
     --create the tile in the game world
-    tile = objects[id].make x * @size, y * @size
+    tile = objects[id].make x * game.tile_scale, y * game.tile_scale
     game\spawn tile
     game.world\add tile, tile.x, tile.y, tile.w, tile.h
 
